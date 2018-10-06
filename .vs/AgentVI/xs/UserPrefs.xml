@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/MainPage.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Models/SensorModel.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="59" Column="10" />
-      <File FileName="AgentVI/AgentVI/Utils/Icon.cs" Line="5" Column="21" />
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="107" Column="20" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="72" Column="49" />
+      <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="10" Column="2" />
+      <File FileName="AgentVI/AgentVI/ViewModels/HealthListViewModel.cs" Line="50" Column="10" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml" Line="9" Column="30" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml.cs" Line="37" Column="2" />
+      <File FileName="AgentVI/AgentVI/Models/SensorModel.cs" Line="157" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
@@ -12,7 +15,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>
