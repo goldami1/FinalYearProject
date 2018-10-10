@@ -7,7 +7,7 @@ namespace AgentVI.Utils
 {
     public static class Settings
     {
-        public static Thickness iOSPlatformPadding { get; } = new Thickness(5);
+		public static Thickness iOSPlatformPadding { get; } = new Thickness(0,30,0,0);
         public static Thickness PaddingForViewCellInListView { get; } = new Thickness(5);
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
         public static Thickness HeaderLogoMargines { get; } = new Thickness(0, 0, 70, 0);
