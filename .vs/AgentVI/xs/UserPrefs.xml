@@ -1,10 +1,12 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/MainPage.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI.Android/MainActivity.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="59" Column="10" />
-      <File FileName="AgentVI/AgentVI/Utils/Icon.cs" Line="5" Column="21" />
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="107" Column="20" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="53" Column="64" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="92" Column="15" />
+      <File FileName="AgentVI/AgentVI/Utils/Settings.cs" Line="10" Column="85" />
+      <File FileName="AgentVI/AgentVI.iOS/AppDelegate.cs" Line="29" Column="27" />
+      <File FileName="AgentVI/AgentVI.Android/MainActivity.cs" Line="35" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
@@ -12,7 +14,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>
