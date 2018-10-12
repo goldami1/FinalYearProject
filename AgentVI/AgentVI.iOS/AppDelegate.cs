@@ -4,6 +4,7 @@ using System.Linq;
 using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
+using Octane.Xamarin.Forms.VideoPlayer.iOS;
 
 namespace AgentVI.iOS
 {
@@ -24,6 +25,7 @@ namespace AgentVI.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             CachedImageRenderer.Init();
+            FormsVideoPlayer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
