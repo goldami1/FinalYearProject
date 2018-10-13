@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:AgentVI.Converters"
+             x:Class="AgentVI.Views.HealthPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimestampConverter x:Key="TimestampConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Margin="20">
+        <Label Margin="20" x:Name="cameraNameHeader" FontAttributes="Bold" HorizontalOptions="Center" FontSize="Large"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="0.2*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Time" TextColor="Navy" FontAttributes="Bold" FontSize="Medium"/>
+            <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
+            <Label Grid.Column="2" Text="Duration (HH:MM)" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
+        </Grid>
+        <ListView x:Name="listView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" Margin="0,20,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.4*" />
+                                <ColumnDefinition Width="0.2*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding HealthTime, Converter={StaticResource TimestampConverter}}" FontSize="Micro" />
+                            <Label Grid.Column="1" Text="{Binding HealthDescription}" FontSize="Micro" />
+                            <Label Grid.Column="2" Text="{Binding HealthDuration}" HorizontalTextAlignment="End" FontSize="Micro"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

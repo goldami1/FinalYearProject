@@ -1,10 +1,12 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/MainPage.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Services/FilterService.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="59" Column="10" />
-      <File FileName="AgentVI/AgentVI/Utils/Icon.cs" Line="5" Column="21" />
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="107" Column="20" />
+      <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="11" Column="2" />
+      <File FileName="AgentVI/AgentVI/ViewModels/HealthListViewModel.cs" Line="12" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml" Line="17" Column="50" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml.cs" Line="23" Column="57" />
+      <File FileName="AgentVI/AgentVI/Services/FilterService.cs" Line="96" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />

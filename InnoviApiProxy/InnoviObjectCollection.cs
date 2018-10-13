@@ -5,10 +5,15 @@ using System;
 
 namespace InnoviApiProxy
 {
-    public class InnoviObjectCollection<InnoviElement> : IEnumerable<InnoviElement> where InnoviElement : InnoviObject
+    public class InnoviObjectCollection<InnoviElement> : ICloneable,  IEnumerable<InnoviElement> where InnoviElement : InnoviObject
     {
         private InnoviObjectDelegate<InnoviElement> m_Delegate;
         private int m_FilterItemId;
+
+        public object Clone()
+        {
+            return new InnoviObjectCollection<InnoviElement>(m_Delegate, m_FilterItemId);
+        }
 
         internal InnoviObjectCollection(InnoviObjectDelegate<InnoviElement> i_Delegate)
         {
