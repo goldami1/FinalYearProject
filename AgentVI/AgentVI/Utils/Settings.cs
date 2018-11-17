@@ -91,6 +91,6 @@ namespace AgentVI.Utils
         public static string ErrorTitleAlertText { get; } = "Error";
         public static string ErrorButtonAlertText { get; } = "Retry";
 
-        public static bool IsHealthFetchingEnabled { get; } = false;
+        public static bool IsHealthFetchingEnabled { get; } = true;
     }
 }

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:AgentVI.Converters"
+             xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
+             xmlns:settings="clr-namespace:AgentVI.Utils"
+             x:Class="AgentVI.Views.HealthPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimestampConverter x:Key="TimestampConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="{x:Static settings:Settings.iOSPlatformPadding}">
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <Label Margin="20" x:Name="cameraNameHeader" FontAttributes="Bold" HorizontalOptions="Center" FontSize="Large"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="0.4*" />
+                    <ColumnDefinition Width="0.2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Text="Time" TextColor="Navy" FontAttributes="Bold" FontSize="Medium"/>
+                <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
+                <Label Grid.Column="2" Text="Duration" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
+            </Grid>
+            <ListView x:Name="healthListView" SeparatorColor="Black" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" >
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0"/>
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                    </Grid>
+                </ListView.Footer>
+                <ListView.Behaviors>
+                    <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*" />
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.2*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding HealthTime, Converter={StaticResource TimestampConverter}}" FontSize="Micro" />
+                                <Label Grid.Column="1" Text="{Binding HealthDescription}" FontSize="Micro" />
+                                <Label Grid.Column="2" Text="{Binding HealthDuration}" HorizontalTextAlignment="End" FontSize="Micro"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage> 

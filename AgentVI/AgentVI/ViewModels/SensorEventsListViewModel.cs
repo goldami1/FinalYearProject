@@ -11,6 +11,7 @@ using AgentVI.Views;
 using AgentVI.Utils;
 using System.Threading.Tasks;
 using AgentVI.Interfaces;
+using Xamarin.Forms;
 
 namespace AgentVI.ViewModels
 {
@@ -20,7 +21,7 @@ namespace AgentVI.ViewModels
         public Sensor SensorSource { get; private set; }
         public string SensorName => SensorSource.Name;
 
-        public SensorEventsListViewModel(Sensor i_Sensor) :base()
+        public SensorEventsListViewModel(Sensor i_Sensor) : base()
         {
             SensorSource = i_Sensor;
             DropdownMenu = buildDropdownMenu(i_Sensor);
@@ -43,9 +44,12 @@ namespace AgentVI.ViewModels
                         eventDetailsPageBuf, eventDetailsPageBuf.BindableViewModel));
                 }))
                 .AddActionItem(new Tuple<string, Action>(
-                    "Health", () => eventsRouter(this, new UpdatedContentEventArgs(
-                        UpdatedContentEventArgs.EContentUpdateType.Push,
-                        new HealthStatPage())))).Build();
+                    "Health", () =>
+                    {
+                        HealthPage healthPageToPush = new HealthPage(SensorSource);
+                        healthPageToPush.PopulateView();
+                        (App.Current.MainPage as NavigationPage).PushAsync(healthPageToPush);
+                    })).Build();
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e)

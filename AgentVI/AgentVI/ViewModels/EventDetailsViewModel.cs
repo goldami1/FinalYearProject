@@ -17,11 +17,11 @@ namespace AgentVI.ViewModels
         public DropdownMenuPage DropdownMenu { get; private set; }
         public string SensorName => isLive ? StreamingSensor.Name : EventModel.SensorName;
         public string SensorEventRuleName => isLive ? string.Empty : EventModel.SensorEventRuleName.convertEnumToString();
-        public string SensorEventBehavior=> isLive ? string.Empty : EventModel.SensorEventRuleName.BehaviorToString();
+        public string SensorEventBehavior => isLive ? string.Empty : EventModel.SensorEventRuleName.BehaviorToString();
         public string SensorEventDateTime => isLive ? string.Empty : new TimestampConverter().Convert(EventModel.SensorEventDateTime, typeof(String), null, null).ToString();
-        public string SensorEventTag=> isLive ? string.Empty : EventModel.SensorEventTag.convertEnumToString();
+        public string SensorEventTag => isLive ? string.Empty : EventModel.SensorEventTag.convertEnumToString();
         public string SensorEventClipPath => isLive ? StreamingSensor.LiveView : EventModel.SensorEventClip;
-        public string SensorEventObjectType => isLive? string.Empty : new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType(), null, null).ToString();
+        public string SensorEventObjectType => isLive ? string.Empty : new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType(), null, null).ToString();
         public bool IsClipAvailable => isLive ? true : EventModel.IsClipAvailable && IsPlayerVisible;
         public bool IsPlayerVisible { get; set; } = true;
         private EventModel EventModel { get; set; }
@@ -64,9 +64,13 @@ namespace AgentVI.ViewModels
                                                                     eventDetailsPageBuf, eventDetailsPageBuf.BindableViewModel));
                     }))
                 .AddActionItem(new Tuple<string, Action>(
-                    "Health", () => eventsRouter(this, new UpdatedContentEventArgs(
-                                                                UpdatedContentEventArgs.EContentUpdateType.Push,
-                                                                new HealthStatPage()))))
+                    "Health", () =>
+                    {
+                        HealthPage healthPageToPush = new HealthPage(EventModel.Sensor);
+                        healthPageToPush.PopulateView();
+                        (App.Current.MainPage as NavigationPage).PushAsync(healthPageToPush);
+                    }
+                    ))
                 .Build();
         }
     }

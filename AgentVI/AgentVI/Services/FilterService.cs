@@ -25,7 +25,8 @@ namespace AgentVI.Services
             public IEnumerable<Sensor> FilteredSensorCollection { get; private set; }
             public IEnumerable<FolderModel> CurrentLevel { get; private set; }
             public IEnumerable<SensorEvent> FilteredEvents { get; private set; }
-            public IEnumerable<Sensor.Health> FilteredHealth { get; private set; }
+            public IEnumerable<Sensor.Health> FilteredHealth => FilteredHealthHelper.Value;
+            private Lazy<IEnumerable<Sensor.Health>> FilteredHealthHelper { get; set; }
             public bool IsAtRootLevel { get; private set; }
             public List<Folder> CurrentPath { get; private set; }
             public string CurrentStringPath => currenPathToString(CurrentPath);
@@ -37,7 +38,7 @@ namespace AgentVI.Services
             private readonly TimeSpan defaultCachingTimespan;
             public event EventHandler FilterStateUpdated;
 
-            
+
 
             public FilterServiceS()
             {
@@ -65,7 +66,7 @@ namespace AgentVI.Services
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = foldersToFolderModels(RootFolders);
-                    fetchHealthArray();
+                    FilteredHealthHelper = new Lazy<IEnumerable<Sensor.Health>>(fetchHealthArray);
                     setFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
                     Task.Factory.StartNew(() => fetchFoldersHierarchy());
@@ -87,7 +88,7 @@ namespace AgentVI.Services
                 IsAtRootLevel = true;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = getRootFolders();
-                fetchHealthArray();
+                FilteredHealthHelper = new Lazy<IEnumerable<Sensor.Health>>(fetchHealthArray);
                 setFilteredEvents();
                 if (i_TriggerOnFilterUpdatedEvent)
                 {
@@ -100,7 +101,7 @@ namespace AgentVI.Services
                 FilteredSensorCollection = i_FolderSelected.GetAllSensors();
                 updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
                 CurrentLevel = getCurrentLevelFromSelectedFolder(i_FolderSelected);
-                fetchHealthArray();
+                FilteredHealthHelper = new Lazy<IEnumerable<Sensor.Health>>(fetchHealthArray);
                 setFilteredEvents();
                 if (i_FolderSelected.Depth >= 0)
                 {
@@ -170,7 +171,7 @@ namespace AgentVI.Services
             {
                 IEnumerable<FolderModel> res = null;
 
-                if(rootFoldersCache != null)
+                if (rootFoldersCache != null)
                 {
                     res = rootFoldersCache;
                 }
@@ -213,13 +214,13 @@ namespace AgentVI.Services
                 //<ImproveIt><begin> change to foreach loop - for now some issue arrises <begin><ImproveIt>
                 IEnumerator<Folder> rootFoldersEnumerator = rootFolders.GetEnumerator();
                 bool hasNext = true;
-                while(hasNext = rootFoldersEnumerator.MoveNext())
+                while (hasNext = rootFoldersEnumerator.MoveNext())
                 {
                     _cachedHierarchy.Add(rootFoldersEnumerator.Current, new ObservableCollection<FolderModel>(
                         foldersToFolderModels(rootFoldersEnumerator.Current.Folders)));
                     fetchFoldersHierarchyHelper(rootFoldersEnumerator.Current);
                 }
-                lock(cacheLock)
+                lock (cacheLock)
                 {
                     cachedHierarchy = _cachedHierarchy;
                 }
@@ -237,19 +238,6 @@ namespace AgentVI.Services
                     {
                         fetchFoldersHierarchyHelper(folder);
                     }
-                }
-            }
-
-            private void fetchHealthArray()
-            {
-                if (Settings.IsHealthFetchingEnabled)
-                {
-                    List<Sensor.Health> res = new List<Sensor.Health>();
-                    foreach (Sensor sensor in FilteredSensorCollection)
-                    {
-                        res.AddRange(sensor.SensorHealthArray);
-                    }
-                    FilteredHealth = res;
                 }
             }
 
@@ -276,6 +264,20 @@ namespace AgentVI.Services
                 }
 
                 return res;
+            }
+
+            private List<Sensor.Health> fetchHealthArray()
+            {
+                List<Sensor.Health> fetchedHealthArray = null;
+                if (Settings.IsHealthFetchingEnabled)
+                {
+                    fetchedHealthArray = new List<Sensor.Health>();
+                    foreach (Sensor sensor in FilteredSensorCollection)
+                    {
+                        fetchedHealthArray.AddRange(sensor.SensorHealthArray);
+                    }
+                }
+                return fetchedHealthArray;
             }
         }
     }
