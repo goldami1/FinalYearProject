@@ -13,7 +13,7 @@ using InnoviApiProxy;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class EventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable, IBindable
+	public partial class EventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable, IBindable, IDisposable
     {
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         public IBindableVM BindableViewModel => eventDetailsViewModel;
@@ -63,7 +63,7 @@ namespace AgentVI.Views
 
         private void handleOrientationChanged(object sender, OrientationChangedEventArgs e)
         {
-            if (e.Orientation == DeviceOrientations.Landscape)
+            if (e.Orientation == DeviceOrientations.Landscape && landscapeEventDetailsPage != null)
             {
                 quitClipLoading();
                 RaiseContentViewUpdateEvent?.Invoke(
@@ -75,19 +75,25 @@ namespace AgentVI.Views
 
         private void quitClipLoading()
         {
-            eventDetailsViewModel.IsPlayerVisible = false;
+            if (eventDetailsViewModel != null)
+            {
+                eventDetailsViewModel.IsPlayerVisible = false;
+            }
         }
 
         private void restartClipLoading()
         {
-            eventDetailsViewModel.IsPlayerVisible = true;
+            if (eventDetailsViewModel != null)
+            {
+                eventDetailsViewModel.IsPlayerVisible = true;
+            }
         }
 
         private async void onEventDetailsBackButtonTapped(object sender, EventArgs e)
         {
             await Task.Factory.StartNew(() => RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Buffering)));
             await Task.Factory.StartNew(()=> RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop)));
-            await Task.Factory.StartNew(()=> RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop)));
+            await Task.Factory.StartNew(()=> RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop, this, BindableViewModel)));
             CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
         }
 
@@ -104,12 +110,23 @@ namespace AgentVI.Views
 
         private void eventsRouter(object sender, UpdatedContentEventArgs e)
         {
-            RaiseContentViewUpdateEvent?.Invoke(this, e);
+            if (landscapeEventDetailsPage != null)
+            {
+                RaiseContentViewUpdateEvent?.Invoke(this, e);
+            }
         }
 
         public void Refocus()
         {
             restartClipLoading();
+        }
+
+        public void Dispose()
+        {
+            landscapeEventDetailsPage.RaiseContentViewUpdateEvent -= eventsRouter;
+            landscapeEventDetailsPage = null;
+            eventDetailsViewModel.EventsRouter -= eventsRouter;
+            eventDetailsViewModel = null;
         }
     }
 }

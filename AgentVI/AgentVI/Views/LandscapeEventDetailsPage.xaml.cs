@@ -55,6 +55,7 @@ namespace AgentVI.Views
                     this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.PopAsync)
                     );
             }
+            
         }
         
         private void quitClipLoading()

@@ -130,6 +130,7 @@ namespace AgentVI.ViewModels
                 else if (e.ContentUpdateType == EContentUpdateType.Pop)
                 {
                     popFromControlViewStack();
+                    disposeObject(e);
                 }
                 else if (e.ContentUpdateType == EContentUpdateType.PushAsync)
                 {
@@ -169,6 +170,11 @@ namespace AgentVI.ViewModels
                     RaiseContentViewUpdateEvent?.Invoke(null, e);
                 }
             }
+        }
+
+        private void disposeObject(UpdatedContentEventArgs i_UpdatedContentEventArgs)
+        {
+            (i_UpdatedContentEventArgs.UpdatedContent as IDisposable)?.Dispose();
         }
 
         internal void updateContentView(EAppTab i_AppTab ,ContentPage i_UpdatedContent, IBindableVM i_UpdatedVM)

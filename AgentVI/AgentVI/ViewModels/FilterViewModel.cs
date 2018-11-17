@@ -15,7 +15,7 @@ using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public class FilterViewModel : IBindableVM, INotifyPropertyChanged
+    public class FilterViewModel : IBindableVM
     {
         private bool _isFetching = false;
         public bool IsFetching
