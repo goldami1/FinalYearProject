@@ -59,6 +59,7 @@ namespace InnoviApiProxy
             }
         }
 
+
         public List<Health> SensorHealthArray
         {
             get
@@ -74,13 +75,24 @@ namespace InnoviApiProxy
 
                     healthObject.Status = status;
                     healthObject.DetailedDescription = detailedDescription;
+
+                    healthObject.SensorName = Name;
+                }
+
+                foreach (Health healthObject in healthArray)
+                {
+                    if (healthObject != healthArray.Last())
+                    {
+                        long currentTime = healthObject.StatusTimeStamp;
+                        long nextTime = healthArray[healthArray.IndexOf(healthObject) + 1].StatusTimeStamp;
+                        healthObject.Duration = nextTime - currentTime;
+                    }
                 }
 
                 return healthArray;
             }
-
         }
-       
+
 
         public InnoviObjectCollection<SensorEvent> SensorEvents
         {
@@ -198,6 +210,8 @@ namespace InnoviApiProxy
             public eStatusDescription Description { get; private set; }
 
             public string DetailedDescription { get; internal set; }
+            public long Duration { get; internal set; }
+            public string SensorName { get; internal set; }
         }
 
         private void setHealthStatusFields(eStatusDescription i_StatusDescription, out eSensorStatus o_Status, out string o_DetailedDescription)
