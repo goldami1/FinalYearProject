@@ -142,17 +142,25 @@ namespace AgentVI.ViewModels
             catch (ArgumentOutOfRangeException)
             {
                 hasNext = false;
-                collectionEnumerator.Reset();
+                safeEnumerableReset();
             }
 
             if (hasNext == false)
             {
                 canLoadMore = false;
-                collectionEnumerator.Reset();
+                safeEnumerableReset();
             }
 
             updateFolderState();
             IsBusy = false;
+        }
+
+        private void safeEnumerableReset()
+        {
+            try
+            {
+                collectionEnumerator.Reset();
+            }catch (NotSupportedException) { }
         }
 
         public virtual void PopulateCollection()
