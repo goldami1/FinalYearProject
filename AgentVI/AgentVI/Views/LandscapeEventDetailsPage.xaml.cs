@@ -24,14 +24,14 @@ namespace AgentVI.Views
 		{
 			InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            CrossDeviceOrientation.Current.UnlockOrientation();
+            CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             onAreaTapped(null, null);
-            CrossDeviceOrientation.Current.UnlockOrientation();
-            CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
         }
 
         public LandscapeEventDetailsPage(EventModel i_EventModel) :this()
@@ -76,8 +76,8 @@ namespace AgentVI.Views
         {
             await firstLineLabel.FadeTo(100, 400);
             await secondLineLabel.FadeTo(100, 400);
-            await firstLineLabel.FadeTo(0, 400);
-            await secondLineLabel.FadeTo(0, 400);
+            await firstLineLabel.FadeTo(0, 1000);
+            await secondLineLabel.FadeTo(0, 1000);
         }
     }
 }

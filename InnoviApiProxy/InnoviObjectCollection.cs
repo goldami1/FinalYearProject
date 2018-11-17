@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Runtime.Serialization;
 
 namespace InnoviApiProxy
 {
@@ -124,7 +125,11 @@ namespace InnoviApiProxy
             public bool MoveNext()
             {
                 object refObj = new object();
-                Console.WriteLine("####Logger####   -   in MoveNext() @ begin" + ">>> " + typeof(InnoviElement).Name + "| " + refObj);
+                bool refObjIsFirstTime = false;
+                ObjectIDGenerator refObjIdGen = new ObjectIDGenerator();
+                long refObjId = refObjIdGen.GetId(refObj, out refObjIsFirstTime);
+
+                Console.WriteLine("####Logger####   -   in MoveNext() @ begin" + ">>> " + typeof(InnoviElement).Name + "| " + refObjId);
                 m_CurrentIndex++;
 
                 if (m_Collection == null || m_CurrentIndex == m_Collection.Count)
@@ -143,7 +148,7 @@ namespace InnoviApiProxy
                         m_Collection.AddRange(currentSection);
                     }
                 }
-                Console.WriteLine("####Logger####   -   in MoveNext() @ end" + ">>> " + typeof(InnoviElement).Name + "| " + refObj);
+                Console.WriteLine("####Logger####   -   in MoveNext() @ end" + ">>> " + typeof(InnoviElement).Name + "| " + refObjId);
                 return m_CurrentPage <= m_TotalPages && m_CurrentPage < 10;
             }
 

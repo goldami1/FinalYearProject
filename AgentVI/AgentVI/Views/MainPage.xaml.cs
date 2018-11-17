@@ -18,6 +18,7 @@ namespace AgentVI.Views
     {
         public MainPageViewModel mainPageVM { get; private set; } = null;
         private Dictionary<EAppTab, SvgCachedImage> tabsCollection;
+        private bool appInitialized = false;
 
         private MainPage()
         {
@@ -36,7 +37,6 @@ namespace AgentVI.Views
         {
             mainPageVM = new MainPageViewModel(i_ProgressReporter, tabsCollection);
             mainPageVM.RaiseContentViewUpdateEvent += OnMainNavigationPushPopRequest;
-            //FooterBarEvents_Clicked(null, null);
             BindingContext = mainPageVM;
         }
 
@@ -44,7 +44,11 @@ namespace AgentVI.Views
         {
             base.OnAppearing();
             mainPageVM.FiltrationPath = null;
-            await Task.Factory.StartNew(() => FooterBarEvents_Clicked(null, null));
+            if (!appInitialized)
+            {
+                appInitialized = !appInitialized;
+                await Task.Factory.StartNew(() => FooterBarEvents_Clicked(null, null));
+            }
         }
 
         private void OnMainNavigationPushPopRequest(object sender, UpdatedContentEventArgs e)
@@ -54,7 +58,9 @@ namespace AgentVI.Views
                 ArgumentException exceptionIns = new ArgumentException("MainPage.OnMainNavigationPushPopRequest was used incorrectly");
 
                 if (e == null || e.ContentUpdateType == EContentUpdateType.None)
+                {
                     throw exceptionIns;
+                }
                 switch (e.ContentUpdateType)
                 {
                     case EContentUpdateType.PushAsync:

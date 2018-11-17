@@ -16,7 +16,13 @@ namespace AgentVI.Models
         private Lazy<bool> IsSensorClipAvailableLazyHelper { get; set; }
         public bool IsClipAvailable
         {
-            get => IsSensorClipAvailableLazyHelper.Value;
+            get
+            {
+                Console.WriteLine("####Logger####   -   Getting IsClipAvailable @ Begin");
+                var res = IsSensorClipAvailableLazyHelper.Value;
+                Console.WriteLine("####Logger####   -   Getting IsClipAvailable @ End");
+                return res;
+            }
         }
         private Sensor m_SensorHolder;
         private Lazy<Sensor> _SensorLazyHelper;
@@ -29,11 +35,21 @@ namespace AgentVI.Models
                 Task.Factory.StartNew(() => m_SensorHolder = _SensorLazyHelper.Value);
             }
         }
-        public Sensor Sensor => m_SensorHolder == null ? SensorLazyHelper.Value : m_SensorHolder;
+        public Sensor Sensor
+        {
+            get
+            {
+                Console.WriteLine("####Logger####   -   Getting Sensor @ Begin");
+                var res = m_SensorHolder == null ? SensorLazyHelper.Value : m_SensorHolder;
+                Console.WriteLine("####Logger####   -   Getting Sensor @ End");
+                return res;
+            }
+        }
         public SensorEvent SensorEvent { get; private set; }
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
+            Console.WriteLine("####Logger####   -   FactoryMethod @ Begin");
             EventModel res = new EventModel()
             {
                 SensorName = i_SensorEvent.SensorName,
@@ -47,6 +63,11 @@ namespace AgentVI.Models
                 IsSensorClipAvailableLazyHelper = new Lazy<bool>(() => i_SensorEvent.IsClipAvailable),
                 SensorEvent = i_SensorEvent
             };
+            Task.Factory.StartNew(() =>
+            {
+                bool buffer = res.IsClipAvailable;
+            });
+            Console.WriteLine("####Logger####   -   FactoryMethod @ End");
             return res;
         }
     }

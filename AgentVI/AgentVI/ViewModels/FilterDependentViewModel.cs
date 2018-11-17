@@ -8,6 +8,7 @@ using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
 using AgentVI.Interfaces;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace AgentVI.ViewModels
 {
@@ -108,6 +109,9 @@ namespace AgentVI.ViewModels
             bool hasNext = true;
             int fetchedItems = 0;
             object refObj = new object();
+            bool refObjIsFirstTime = false;
+            ObjectIDGenerator refObjIdGen = new ObjectIDGenerator();
+            long refObjId = refObjIdGen.GetId(refObj, out refObjIsFirstTime);
 
             IsBusy = true;
             if (collectionEnumerator == null || IsFilterStateChanged)
@@ -118,19 +122,19 @@ namespace AgentVI.ViewModels
 
             try
             {
-                Console.WriteLine("####Logger####   -   in FetchCollection() @before MoveNext" + ">>> " + typeof(T).Name + "| " + refObj);
+                Console.WriteLine("####Logger####   -   in FetchCollection() @before MoveNext" + ">>> " + typeof(T).Name + "| " + refObjId);
                 var task = Task.Run(() => collectionEnumerator.MoveNext());
                 if (task.Wait(TimeSpan.FromMilliseconds(5000)))
                     hasNext = task.Result;
                 else
                     hasNext = false;
-                Console.WriteLine("####Logger####   -   in FetchCollection() @after MoveNext" + ">>> " + typeof(T).Name + "| " + refObj);
+                Console.WriteLine("####Logger####   -   in FetchCollection() @after MoveNext" + ">>> " + typeof(T).Name + "| " + refObjId);
 
                 while (hasNext && canLoadMore)
                 {
-                    Console.WriteLine("####Logger####   -   in FetchCollection() getting collectionEnumerator.Current @before" + ">>> " + typeof(T).Name + "| " + refObj);
+                    Console.WriteLine("####Logger####   -   in FetchCollection() getting collectionEnumerator.Current @before" + ">>> " + typeof(T).Name + "| " + refObjId);
                     ObservableCollection.Add(collectionEnumerator.Current);
-                    Console.WriteLine("####Logger####   -   in FetchCollection() getting collectionEnumerator.Current @after" + ">>> " + typeof(T).Name + "| " + refObj);
+                    Console.WriteLine("####Logger####   -   in FetchCollection() getting collectionEnumerator.Current @after" + ">>> " + typeof(T).Name + "| " + refObjId);
                     if (IsEmptyFolder)
                         IsEmptyFolder = !IsEmptyFolder;
                     if (fetchedItems++ == pageSize)

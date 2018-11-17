@@ -63,8 +63,8 @@ namespace AgentVI.Views
                 updatedContentEventArgs = new UpdatedContentEventArgs(
                     UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf,
                     cameraEventsPageBuf.BindableViewModel);
+                RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
             });
-            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 
         private void eventsRouter(object sender, UpdatedContentEventArgs e)
