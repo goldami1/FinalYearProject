@@ -29,12 +29,19 @@
 ### Development Status:
 Project is in its beta version. Beta release can be downloaded from beta-release branch.
   * Features status:
-    * Live stream from sensors. - Supported both by API & App
-    * Visibility of sensors. - Supported both by API & App
-    * Filtration based on interest-by-sites. - Supported by App and partially by API
-    * Sensors health history visibility. - Supported by App and partially by API
-    * Tagging events.
-    * Notifications based on real time events.
+    * ~~Live stream from sensors~~ - Supported both by API & App
+    * ~~Visibility of sensors~~ - Supported both by API & App
+    * ~~Filtration based on interest-by-sites~~ - Supported by App and partially by API
+    * ~~Sensors health history visibility~~ - Supported by App and partially by API
+    * Tagging events
+    * Notifications based on real time events
+
+### Getting Started:
+- Visual Studio 2015+
+- Xamarin Environment Installed (Through VS Installer)
+- Make sure all nuget packages and dependencies are up to date (Through Nuget Packages Manager in VS)
+- Go on and dive into project's code
+- <b>Remark:</b> for debug - a simulator or a real device is required.
 
 ### App is compatabile with:
 1. Xiaomi Mi A2 (tested by [goldami1](https://github.com/goldami1))
