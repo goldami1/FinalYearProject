@@ -10,6 +10,7 @@
 * AgentVI App Features:
   * Live stream from sensors.
   * Visibility of sensors.
+  * Visibility of events (Highly detailed visibility as well).
   * Filtration based on interest-by-sites.
   * Tagging events.
   * Sensors health history visibility.
@@ -29,8 +30,9 @@
 ### Development Status:
 Project is in its beta version. Beta release can be downloaded from beta-release branch.
   * Features status:
-    * ~~Live stream from sensors~~ - Supported both by API & App
+    * ~~Live stream from sensors~~ - Supported by App (HLS Protocol)
     * ~~Visibility of sensors~~ - Supported both by API & App
+    * ~~Visibility of events (Highly detailed visibility as well)~~ - Supported both by API & App
     * ~~Filtration based on interest-by-sites~~ - Supported by App and partially by API
     * ~~Sensors health history visibility~~ - Supported by App and partially by API
     * Tagging events
