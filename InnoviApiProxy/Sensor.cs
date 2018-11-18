@@ -94,7 +94,6 @@ namespace InnoviApiProxy
             }
         }
 
-
         public InnoviObjectCollection<SensorEvent> SensorEvents
         {
             get

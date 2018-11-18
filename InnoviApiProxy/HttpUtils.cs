@@ -248,9 +248,6 @@ namespace InnoviApiProxy
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
 
-        //    List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
-     //       sortedEvents.Reverse();
-
             if (events.Count == 0)
             {
                 events = null;
@@ -302,7 +299,6 @@ namespace InnoviApiProxy
 
         }
 
-
         internal static List<Sensor> GetAllFolderSensors(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
             verifyLoggedInStatus();
@@ -317,9 +313,6 @@ namespace InnoviApiProxy
 
         private static List<Sensor> getFolderSensorsHelper(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount, HttpRequestMessage i_HttpRequest)
         {
-          //  var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
-          //      "sensors?page=" + i_PageId.ToString() + "&folder=" + i_FolderId.ToString());
-
             Task<HttpResponseMessage> result = i_Client.SendAsync(i_HttpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
@@ -330,8 +323,6 @@ namespace InnoviApiProxy
 
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
-       //     List<Sensor> SortedSensors = sensors.OrderByDescending(x => x.Name).ToList();
-       //     SortedSensors.Reverse();
 
             if (sensors.Count == 0)
             {
@@ -368,9 +359,6 @@ namespace InnoviApiProxy
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
 
-         //   List<Folder> sortedFolders = folders.OrderByDescending(x => x.Name).ToList();
-        //    sortedFolders.Reverse();
-
             if (folders.Count == 0)
             {
                 folders = null;
@@ -404,8 +392,6 @@ namespace InnoviApiProxy
 
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
-        //    List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
-         //   sortedEvents.Reverse();
 
             if (events.Count == 0)
             {
