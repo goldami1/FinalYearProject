@@ -6,7 +6,7 @@
 * AgentVI App intends to provide Innovi clients with additional GUI platform.
 * Prior implementation of this project, Innovi AgentVI clients had a desktop web UI.
 * Innovi AgentVI's web UI provides its clients with highly informative data and tools - which in most of the time isn't what the user is looking for.
-* Following the completion of this project - Innovi AgentVI can provide their customers with a mobile UI which is supported both by iOS and Android.
+* Following the completion of this project - Innovi AgentVI can provide their customers with an easy and intuitive mobile UI which is supported both by iOS and Android. AgentVI App provides the user with the most commonly used functionality of AgentVI's.
 * AgentVI App Features:
   * Live stream from sensors.
   * Visibility of sensors.
