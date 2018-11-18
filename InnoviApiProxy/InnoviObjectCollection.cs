@@ -104,9 +104,7 @@ namespace InnoviApiProxy
             {
                 get
                 {
-                    Console.WriteLine("####Logger####   -   Getting InnoviElement Current @ begin" + ">>> " + typeof(InnoviElement).Name);
                     var res =  m_Collection[m_CurrentIndex];
-                    Console.WriteLine("####Logger####   -   Getting InnoviElement Current @ end" + ">>> " + typeof(InnoviElement).Name);
                     return res;
                 }
             }
@@ -115,9 +113,7 @@ namespace InnoviApiProxy
             {
                 get
                 {
-                    Console.WriteLine("####Logger####   -   Getting IEnumerator.Current @ begin" + ">>> " + typeof(InnoviElement).Name);
                     var res = m_Collection[m_CurrentIndex];
-                    Console.WriteLine("####Logger####   -   Getting IEnumerator.Current @ end" + ">>> " + typeof(InnoviElement).Name);
                     return res;
                 }
             }
@@ -129,7 +125,6 @@ namespace InnoviApiProxy
                 ObjectIDGenerator refObjIdGen = new ObjectIDGenerator();
                 long refObjId = refObjIdGen.GetId(refObj, out refObjIsFirstTime);
 
-                Console.WriteLine("####Logger####   -   in MoveNext() @ begin" + ">>> " + typeof(InnoviElement).Name + "| " + refObjId);
                 m_CurrentIndex++;
 
                 if (m_Collection == null || m_CurrentIndex == m_Collection.Count)
@@ -148,7 +143,6 @@ namespace InnoviApiProxy
                         m_Collection.AddRange(currentSection);
                     }
                 }
-                Console.WriteLine("####Logger####   -   in MoveNext() @ end" + ">>> " + typeof(InnoviElement).Name + "| " + refObjId);
                 return m_CurrentPage <= m_TotalPages && m_CurrentPage < 10;
             }
 

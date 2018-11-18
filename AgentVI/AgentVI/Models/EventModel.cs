@@ -18,9 +18,7 @@ namespace AgentVI.Models
         {
             get
             {
-                Console.WriteLine("####Logger####   -   Getting IsClipAvailable @ Begin");
                 var res = IsSensorClipAvailableLazyHelper.Value;
-                Console.WriteLine("####Logger####   -   Getting IsClipAvailable @ End");
                 return res;
             }
         }
@@ -39,9 +37,7 @@ namespace AgentVI.Models
         {
             get
             {
-                Console.WriteLine("####Logger####   -   Getting Sensor @ Begin");
                 var res = m_SensorHolder == null ? SensorLazyHelper.Value : m_SensorHolder;
-                Console.WriteLine("####Logger####   -   Getting Sensor @ End");
                 return res;
             }
         }
@@ -49,7 +45,6 @@ namespace AgentVI.Models
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
-            Console.WriteLine("####Logger####   -   FactoryMethod @ Begin");
             EventModel res = new EventModel()
             {
                 SensorName = i_SensorEvent.SensorName,
@@ -67,7 +62,6 @@ namespace AgentVI.Models
             {
                 bool buffer = res.IsClipAvailable;
             });
-            Console.WriteLine("####Logger####   -   FactoryMethod @ End");
             return res;
         }
     }

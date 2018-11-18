@@ -25,9 +25,7 @@ namespace AgentVI.ViewModels
             base.PopulateCollection();
             enumerableCollection = ServiceManager.Instance.FilterService.FilteredEvents.Select(sensorEvent =>
             {
-                Console.WriteLine("####Logger####   -   EventModel Ctr @ begin");
                 var res = EventModel.FactoryMethod(sensorEvent);
-                Console.WriteLine("####Logger####   -   EventModel Ctr @ end");
                 return res;
             });
             FetchCollection();
