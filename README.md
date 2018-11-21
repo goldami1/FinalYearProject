@@ -29,6 +29,7 @@
 
 ### Development Status:
 Project is in its beta version. Beta release can be downloaded from beta-release branch.
+  * Demo Ver. Preview: https://www.youtube.com/watch?v=BJGM0ZLftNQ
   * Features status:
     * ~~Live stream from sensors~~ - Supported by App (HLS Protocol)
     * ~~Visibility of sensors~~ - Supported both by API & App
